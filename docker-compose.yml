@@ -1,0 +1,46 @@
+version: '3.4'
+
+services:
+  demoreplicationandsharding:
+    image: ${DOCKER_REGISTRY-}demoreplicationandsharding
+    build:
+      context: .
+      dockerfile: DemoReplicationAndSharding/Dockerfile
+    networks:
+        appNetwork:
+            ipv4_address: 172.21.0.10
+  postgresql_master:
+    image: postgres
+    container_name: postgresql_master
+    restart: always
+    volumes:
+      - ./psqlmaster:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: 228cat228
+    ports:
+      - "12080:5432"
+      - "12081:5433"
+    networks:
+        appNetwork:
+            ipv4_address: 172.21.0.2
+  postgresql_slave:
+    image: postgres
+    container_name: postgresql_slave
+    restart: always
+    volumes:
+      - ./psqlslave:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: 228cat228
+    ports:
+      - "13080:5432"
+      - "13081:5433"
+    networks:
+        appNetwork:
+            ipv4_address: 172.21.0.3
+networks:
+    appNetwork:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: "172.21.0.0/16"
