@@ -21,6 +21,15 @@ namespace DemoReplicationAndSharding.Controllers
 
         private ReplContext master = new(ReplContext.Master);
         private ReplContext slave = new(ReplContext.Slave);
+        private ReplContext slave2 = new(ReplContext.Slave2);
+        private Random random = new();
+
+        private ReplContext GetContext() => random.Next(3) switch
+        {
+            ReplContext.Master => master,
+            ReplContext.Slave => slave,
+            _ => slave2,
+        };
 
         [Route("index")]
         public IActionResult Index()
@@ -34,7 +43,7 @@ namespace DemoReplicationAndSharding.Controllers
         {
             var form = Request.Form;
             int gi = int.Parse(form["gi"]);
-            string ge = slave.Arr.First(e => e.Index == gi).Element;
+            string ge = GetContext().Arr.First(e => e.Index == gi).Element;
             return ConstructPage(gi, ge, "");
         }
 

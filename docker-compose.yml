@@ -37,6 +37,20 @@ services:
     networks:
         appNetwork:
             ipv4_address: 172.21.0.3
+  postgresql_slave2:
+    image: postgres
+    container_name: postgresql_slave2
+    restart: always
+    volumes:
+      - ./psqlslave2:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: 228cat228
+    ports:
+      - "14080:5432"
+      - "14081:5433"
+    networks:
+        appNetwork:
+            ipv4_address: 172.21.0.4
 networks:
     appNetwork:
         driver: bridge

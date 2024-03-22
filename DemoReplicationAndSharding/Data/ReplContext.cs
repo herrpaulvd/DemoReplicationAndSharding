@@ -8,10 +8,12 @@ namespace DemoReplicationAndSharding.Data
         {
             "Host=172.21.0.2; Database=db; Username=postgres; Password=228cat228",
             "Host=172.21.0.3; Database=db; Username=postgres; Password=228cat228",
+            "Host=172.21.0.4; Database=db; Username=postgres; Password=228cat228",
         };
 
         public const int Master = 0;
         public const int Slave = 1;
+        public const int Slave2 = 2;
         private int index;
 
         public ReplContext(int index) => this.index = index;
