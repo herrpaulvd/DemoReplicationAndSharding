@@ -51,6 +51,48 @@ services:
     networks:
         appNetwork:
             ipv4_address: 172.21.0.4
+  postgresql_shard1:
+    image: postgres
+    container_name: postgresql_shard1
+    restart: always
+    volumes:
+      - ./psqlshard1:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: 228cat228
+    ports:
+      - "15080:5432"
+      - "15081:5433"
+    networks:
+        appNetwork:
+            ipv4_address: 172.21.0.5
+  postgresql_shard2:
+    image: postgres
+    container_name: postgresql_shard2
+    restart: always
+    volumes:
+      - ./psqlshard2:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: 228cat228
+    ports:
+      - "16080:5432"
+      - "16081:5433"
+    networks:
+        appNetwork:
+            ipv4_address: 172.21.0.6
+  postgresql_shard3:
+    image: postgres
+    container_name: postgresql_shard3
+    restart: always
+    volumes:
+      - ./psqlshard3:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: 228cat228
+    ports:
+      - "17080:5432"
+      - "17081:5433"
+    networks:
+        appNetwork:
+            ipv4_address: 172.21.0.7
 networks:
     appNetwork:
         driver: bridge

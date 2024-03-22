@@ -1,0 +1,21 @@
+﻿@model DemoReplicationAndSharding.Controllers.ShardController.Model
+
+@{
+
+}
+
+<form method="post" asp-area="" asp-controller="Shard" asp-action="PostGet">
+    <label>Key:</label>
+    <input name="gi" type="text" maxlength="50" value="@Model.GetIndex" />
+    <label>Value:</label>
+    <input name="ge" type="text" maxlength="50" value="@Model.GetElement" />
+    <input type="submit" value="Get" />
+</form>
+
+<form method="post" asp-area="" asp-controller="Shard" asp-action="PostAdd">
+    <label>Key:</label>
+    <input name="ai" type="text" maxlength="50" value="@Model.AddIndex" />
+    <label>Value:</label>
+    <input name="ae" type="text" maxlength="50" value="@Model.AddElement" />
+    <input type="submit" value="Add" />
+</form>
